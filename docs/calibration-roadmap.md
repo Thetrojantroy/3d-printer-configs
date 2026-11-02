@@ -2,6 +2,8 @@
 
 Status: proposed; no calibration actions have been performed by this repository contribution. Use the Ender 5 S1 audit as a baseline, not as proof that settings are calibrated. For the other printers, inventory their Marlin settings first and adapt the sequence after identifying hardware.
 
+The [2 November local slicer audit](slicer-audit-2026-11-02.md) now records actual saved profiles, overrides, missing custom S1 mapping and compatibility conflicts. Resolve those stage-1 findings using the [proposed tests and rollback plan](slicer-change-plan.md), then record material-specific results with the [filament template](../shared/templates/filament-calibration.md). No profile correction has been applied.
+
 Every stage needs a dated record, fixed material/nozzle/test conditions, raw private evidence retained outside Git, sanitized results, an acceptance decision and a rollback path. Proceed one controlled change at a time. Obtain explicit owner approval before firmware flashing, heating or movement; separately plan any required restart or configuration save. Never interrupt a print.
 
 | Stage | Purpose | Automatable later, after approval | Physical work / acceptance |

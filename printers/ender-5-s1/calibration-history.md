@@ -26,4 +26,6 @@ Issue #1 states the usual physical nozzle is 0.5 mm, existing PrusaSlicer preset
 
 ## Next results
 
+Read-only issue #5 recheck, 2 November 2026: current config/include hashes match the prior baseline; no settings changed. The [local slicer audit](../../docs/slicer-audit-2026-11-02.md) found a missing custom S1 mapping and filament/filter conflicts, not new calibration results. All audited presets remain observed; none is newly tested/accepted.
+
 TBD: no new physical calibration result is claimed. Use the [record template](../../shared/templates/calibration-record.md) for the next approved stage, beginning with actual nozzle/profile alignment.

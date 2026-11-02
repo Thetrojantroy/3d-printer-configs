@@ -1,6 +1,12 @@
 # Slicer inventory
 
-Status: partial historical inventory. Owner reports existing PrusaSlicer printer/nozzle/filament presets; current exports and complete preset names/versions are TBD. No laptop profile was read or changed in this contribution.
+Status: historical job evidence below, supplemented by the [actual local read-only profile audit of 2 November 2026](../../docs/slicer-audit-2026-11-02.md). Profiles were read for issue #5; none were changed. Raw names/exports remain private.
+
+## Current local-store mapping gap
+
+The local 2.9.5 store has no custom printer preset explicitly declaring ENDER5S1: PR01/PR02 are generic ENDER5 Marlin variants (0.4/0.5), and their mapping to physical machines is unconfirmed. The installed system Ender-5 S1 0.4/0.5 variants are also Marlin-oriented and omit fresh probing. They must not silently replace the historical Klipper S1 profile. Its actual saved source/export remains missing. The prior 2.9.6 job metadata is historical, not evidence that those settings exist in this store today.
+
+Current S1 configuration was re-read: main/include hashes match the earlier baseline, PA remains zero, shaping absent and nozzle declaration 0.4. No start/end macro or G29 wrapper is loaded. The intentional fresh mesh on **every print** must be retained when the actual S1 preset is identified; do not infer G29 compatibility from a generic preset.
 
 | Category | Evidence | Next verification |
 |---|---|---|
