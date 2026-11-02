@@ -2,7 +2,7 @@
 
 ## Scope and evidence
 
-Status: **recorded repair**, performed on 2 November 2026; this documentation PR does not operate a printer. Source: local Pi-Camera-Fix diagnosis notes, before/after Crowsnest copies, repair command output, camera/direct-capture checks and final service checks. These were inspected before writing the guide. Raw logs, camera pictures, personal paths, network details and working backups remain private.
+Status: **verified configuration fix** for the environment below. The backend change and verification steps were checked against before/after configuration and capture results. This guide contains technical findings only; raw diagnostic records and images are not published. It does not operate a printer.
 
 Verified environment:
 
@@ -10,7 +10,7 @@ Verified environment:
 |---|---|
 | Host | Raspberry Pi Zero 2 W, Raspberry Pi OS Bookworm, 32-bit armv7l |
 | Kernel | 6.12.34+rpt-rpi-v7 |
-| Camera after connection | OV5647, reported at `/base/soc/i2c0mux/i2c@1/ov5647@36` |
+| Camera | OV5647, reported at `/base/soc/i2c0mux/i2c@1/ov5647@36` |
 | Utilities | rpicam-apps 1.9.0; libcamera runtime reported v0.5.2+99-bfd68f78 |
 | Crowsnest | v4.1.16-1-g059fa87; installed ustreamer v6.36 and camera-streamer revision 400e036 |
 | Printer stack | Klipper v0.13.0-269-g8db5d254, Moonraker, Mainsail and Fluidd |
@@ -19,10 +19,9 @@ This is not a recommendation to downgrade or install these versions. Other senso
 
 ## Symptoms and confirmed causes
 
-Two different conditions occurred:
+The confirmed backend problem: OV5647 was detected by libcamera, but the camera section used `mode: ustreamer` and `device: /dev/video0`. The kernel reported `Wrong width or height 640x480 (remote pad set to 1920x1080)` and `Failed to start media pipeline: -22`. The raw CSI V4L2 endpoint was being used without the appropriate libcamera pipeline. Switching that camera to the installed camera-streamer backend with its detected libcamera path resolved ongoing capture.
 
-1. **Initially no physical camera was connected.** `rpicam-hello --list-cameras` reported no cameras, CSI nodes were disabled, and Crowsnest stopped with "No usable Devices Found". Mainsail's snapshot proxy returned HTTP 502. Matching sensor modules and camera software were already installed; installing packages would not provide a missing camera.
-2. After a camera was connected with power removed and the Pi powered up, OV5647 auto-detection worked. But the default camera section used `mode: ustreamer` and `device: /dev/video0`. The kernel repeatedly reported `Wrong width or height 640x480 (remote pad set to 1920x1080)` and `Failed to start media pipeline: -22`. The raw CSI V4L2 endpoint was being used without the appropriate libcamera pipeline. Switching that camera to the installed camera-streamer backend with its detected libcamera path resolved ongoing capture.
+"No usable Devices Found" or a Mainsail HTTP 502 can also occur when a camera is not detected at all. That is a separate diagnostic branch, not proof of this backend mismatch. Check detection before applying the configuration change.
 
 An active service and even HTTP 200 were insufficient proof: an endpoint could return a bad startup frame. The actual image had to be inspected.
 
@@ -48,9 +47,9 @@ Inspect your actual Crowsnest config locally as well. Paths vary: this installat
 
 ### If no camera is listed
 
-First confirm a compatible camera and the correct Pi Zero CSI ribbon are physically present. In the recorded case, the owner approved a clean shutdown, power was removed, the camera connected, and power restored. **Do not attach or reseat the ribbon while powered.** Do not pull power before a clean shutdown.
+Confirm a compatible camera and the correct Pi Zero CSI ribbon are physically present. If connection/reseating is needed, obtain approval for a clean shutdown and remove power before handling the ribbon. **Do not attach or reseat it while powered.** Do not pull power before a clean shutdown.
 
-The boot configuration already contained `camera_auto_detect=1`; it was not edited. The connected camera was then detected without adding a manual overlay. Wrong ribbon orientation, loose/damaged cable, another sensor needing an overlay, unavailable modules or power problems are *other diagnostic possibilities*, not causes established in this case. Investigate them only if your evidence points there. Do not add a guessed sensor overlay or enable a legacy stack as a blanket remedy.
+The verified configuration used `camera_auto_detect=1` without adding a manual sensor overlay. Wrong ribbon orientation, loose/damaged cable, another sensor needing an overlay, unavailable modules or power problems are *other diagnostic possibilities*, not established causes of the backend error. Investigate them only if your evidence points there. Do not add a guessed sensor overlay or enable a legacy stack as a blanket remedy.
 
 ## Actual configuration repair
 
@@ -82,7 +81,7 @@ Then the actual service command was:
 sudo -n systemctl restart crowsnest
 ```
 
-This restarts camera streaming only and interrupts its viewers. Klipper and Moonraker were **not** restarted. No software-repair reboot was required; the earlier power cycle was for safely connecting hardware. No post-repair reboot test was performed.
+This restarts camera streaming only and interrupts its viewers. Klipper and Moonraker did **not** need restarting for this change. No reboot was required for the software fix. Persistence across a subsequent reboot was not tested.
 
 ## Verification through the existing Mainsail route
 
@@ -100,7 +99,7 @@ curl -s --max-time 4 -o /tmp/camera-check.mjpg \
 
 The original temporary output names were normalized here; URLs, test parameters and config changes retain the recorded behavior. The snapshot was a 640×480 JPEG. The bounded stream check returned HTTP 200 and approximately 2.85 MB in four seconds. A timeout at the end of a deliberately bounded continuous-stream check is expected; **a timeout alone is not success**—inspect status, received bytes and decoded frames.
 
-View actual consecutive snapshots and the moving feed in Mainsail, not just `file` output. From your client use the printer's existing local Mainsail address and the paths above. Do not publish that address. The recorded checks verified the configured snapshot/stream routes and clear images; browser UI playback was not independently visually inspected in that session. The owner subsequently confirmed the camera was fixed.
+View actual consecutive snapshots and the moving feed in Mainsail, not just `file` output. From your client use the printer's existing local Mainsail address and the paths above. Do not publish that address. Verification covered configured snapshot/stream routes and decoded images; browser UI playback was not independently visually inspected.
 
 The first snapshot after startup was sometimes corrupt (purple/black artifact). Three subsequent snapshots were clear. That initial-frame artifact was **not eliminated**, so the result is working ongoing output with a known startup limitation, not a claim of flawless first-frame behavior.
 
