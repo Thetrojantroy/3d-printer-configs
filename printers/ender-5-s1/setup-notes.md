@@ -2,7 +2,9 @@
 
 Status: working installation exists; repository contribution is documentation only.
 
-The prior audit found a main printer configuration including the standard Mainsail macro file. Existing private backups and raw records remain outside this repository. No deployable sanitized configuration has been reviewed/published yet. Exact board/MCU identification, recovery method and hardware modifications remain TBD pending confirmation.
+The prior audit found a main printer configuration including the standard Mainsail macro file. Existing private backups and raw records remain outside this repository. No deployable sanitized configuration has been reviewed/published yet. Exact board/MCU identification and recovery method remain TBD pending confirmation.
+
+[Issue #4](https://github.com/Thetrojantroy/3d-printer-configs/issues/4) records the owner's 2 November 2026 report: stock/original hotend and printhead arrangement, with replacement extruder gears available but not installed. Keep installed and planned hardware separate. Before any approved installation, preserve the working extrusion baseline; afterward verify mechanics, measured rotation distance, flow and dependent calibration before accepting production results. No hardware or calibration change is performed by these notes.
 
 Preserve Klipper/Moonraker/Mainsail/Fluidd and the working camera installation. Do not reuse camera-access credentials or publish network identifiers. Do not restart services or operate the printer from a documentation task.
 

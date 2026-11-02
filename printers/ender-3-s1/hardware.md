@@ -1,19 +1,19 @@
-# Hardware inventory template
+# Ender 3 S1 hardware inventory
 
-Status: draft. Printer: TBD. Record date / source: TBD.
+Status: **owner-reported, not physically verified**, dated 2 November 2026. Source: [issue #4](https://github.com/Thetrojantroy/3d-printer-configs/issues/4).
 
-| Item | Value | Evidence / verification date |
+| Item | Installed / reported state | Verification or remaining gap |
 |---|---|---|
-| Exact model and hardware revision | TBD | TBD |
-| Controller board revision / MCU marking | TBD | Physical identification required |
-| Firmware / build / bootloader / recovery | TBD | TBD |
-| Host platform and communications | TBD | Omit private addresses/identifiers |
-| Extruder / gearing / hotend | TBD | TBD |
-| Physical nozzle diameter / type | TBD | Owner confirmation, not software inference |
-| Probe / endstops / offsets | TBD | TBD |
-| Bed / surface / useful travel | TBD | TBD |
-| Heater / temperature sensors / fans | TBD | Wiring and authoritative reference |
-| Accelerometer / mounting | TBD | Do not assume attached |
-| Modifications and maintenance | TBD | TBD |
+| Printer / firmware | Ender 3 S1, Marlin | Exact firmware build/recovery and hardware revision TBD |
+| Hotend | Micro Swiss all-metal hotend fitted | Owner report; exact part/version and physical inspection TBD |
+| Printhead / mount | Custom 3D-printed assembly fitted | Geometry, rigidity, materials and clearances need physical review |
+| Extruder | Original extruder remains installed | Owner report; gearing/condition not measured |
+| Nozzle and CR Touch positions | Owner believes approximately stock | **Unverified**; not a confirmation of stock geometry |
+| X/Y probe offsets | Not physically remeasured | Must measure nozzle-to-probe geometry before migration or offset-dependent changes; no numeric offsets asserted |
+| Controller board / MCU | TBD | Exact board revision and MCU marking must be physically identified |
+| Physical nozzle diameter / type | TBD | Must confirm actual nozzle, not infer from a preset |
+| Bed / surface / usable travel | TBD | Physical confirmation required |
+| Heater / sensors / fans / wiring | TBD | Identify exact parts and validate after hotend/mount changes |
+| Host / accelerometer / other modifications | TBD | Do not infer from the Ender 5 S1 |
 
-Keep serial numbers, network details and identifying photos private. Firmware settings do not prove physical hardware identity.
+No configuration, firmware, offsets or calibration values are changed here. Keep serial numbers, personal identifiers, network details and unsanitized photos/exports private. A firmware or slicer setting does not establish physical geometry.
