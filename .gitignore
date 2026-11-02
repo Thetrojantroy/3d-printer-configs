@@ -20,6 +20,10 @@ raw/
 private/
 backups/
 calibration-baseline/
+slicer-audit-private/
+PrusaSlicer.ini
+*.3mf
+*.amf
 *.bak
 *.backup
 *.bkp
