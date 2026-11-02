@@ -1,6 +1,8 @@
 # Slicer inventory
 
-Status: partial historical inventory. Owner reports existing PrusaSlicer printer/nozzle/filament presets; current exports and complete preset names/versions are TBD. No laptop profile was read or changed in this contribution.
+Status: historical inventory below, with a [read-only project/profile follow-up](../../docs/ender-5-s1-profile-nozzle-investigation.md). The follow-up found explicit S1 / 0.5 mm settings in a recent 3MF project, separate from the default saved custom-preset directory. No project or preset was imported, saved or changed. Raw exports and names remain private.
+
+The recovered project retains fresh BED_MESH_CALIBRATE on every print and S1-specific start/end, but still uses Marlin flavour and a 224×224 bed outline versus current configured X/Y maxima 222/220. Its nozzle declaration is 0.5; current Klipper remains 0.4. Do not substitute a generic preset or apply a fix before verifying the physical nozzle and reviewing the proposed profile/config alignment.
 
 | Category | Evidence | Next verification |
 |---|---|---|
