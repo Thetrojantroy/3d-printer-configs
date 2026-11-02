@@ -16,6 +16,11 @@ Central configuration and calibration resource for three printers, with balanced
 4. Before publishing anything, follow the [public-data and secret review](docs/publication-safety.md).
 5. Use the [migration checklist](docs/klipper-migration.md) for later Klipper migrations. Never copy another board's pin map blindly.
 
+## Troubleshooting guides
+
+- [Raspberry Pi Zero 2 W CSI camera: Crowsnest finds no usable devices or Mainsail has no feed](guides/raspberry-pi/raspberry-pi-zero-2-w-csi-camera-crowsnest.md) — confirmed OV5647/Bookworm case, actual repair, image checks and rollback.
+- [Troubleshooting index](guides/README.md) — find guides by symptom and distinguish confirmed fixes from diagnostic possibilities.
+
 ## Layout and status
 
 `printers/<printer>/` holds hardware details, slicer inventory, calibration history and setup notes. `shared/` holds reusable documentation templates, not universal machine settings. `docs/` holds project-wide decisions and procedures.
