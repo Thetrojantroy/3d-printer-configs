@@ -15,6 +15,7 @@ Central configuration and calibration resource for three printers, with balanced
 3. Review [design decisions](docs/design-decisions.md), especially fresh probing on **every Ender 5 S1 print** and printer-specific start/end behavior.
 4. Before publishing anything, follow the [public-data and secret review](docs/publication-safety.md).
 5. Use the [migration checklist](docs/klipper-migration.md) for later Klipper migrations. Never copy another board's pin map blindly.
+6. Read the [S1 project-profile and nozzle investigation](docs/ender-5-s1-profile-nozzle-investigation.md): a project-embedded 0.5 mm configuration has been found, while the current firmware still declares 0.4 mm. Physical confirmation and a reviewed proposal are required before changes.
 
 ## Troubleshooting guides
 
